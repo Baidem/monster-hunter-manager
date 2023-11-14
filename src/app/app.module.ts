@@ -13,6 +13,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ArmorListComponent } from './pages/armors/armor-list/armor-list.component';
 import { ArmorDetailsComponent } from './pages/armors/armor-details/armor-details.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { FormErrorsComponent } from './components/form-errors/form-errors/form-errors.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     ArmorListComponent,
     ArmorDetailsComponent,
     SigninComponent,
-    ErrorComponent
+    ErrorComponent,
+    FormErrorsComponent
   ],
   imports: [
     BrowserModule,

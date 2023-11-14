@@ -19,10 +19,12 @@ export class ArmorService {
   // GET ALL
   getAll(): Promise<Armor[]> {
     const obsHttp$ = this.http
-    .get<ArmorHttp[]>(`${this.fullBaseUrlApi}/`)
+    .get<ArmorHttp[]>(`${this.fullBaseUrlApi}`)
     .pipe(
       map((armorsHttp: ArmorHttp[]) => armorsHttp.map((armorHttp: ArmorHttp) => Armor.mapperArmorHttpToArmor(armorHttp)))
-    );
+
+      );
+      console.log(obsHttp$);
 
     return firstValueFrom(obsHttp$);
   }

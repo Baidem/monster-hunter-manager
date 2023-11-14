@@ -30,6 +30,8 @@ export class ArmorListComponent implements OnInit {
   // ON INIT
   ngOnInit(): void {
     this.armors$ = this.getElementsFiltered();
+    console.log(this.armors$);
+
   }
   // ON INPUT SEARCH FILTER
   onInputSearchFilter(evt: any): void {
@@ -89,28 +91,22 @@ export class ArmorListComponent implements OnInit {
       })
       .catch(() => {});
   }
+  //ON SUBMIT ELEMENT FORM
+  onSubmitElementForm(modal: any){
+    if(this.armorForm?.valid){
+      modal.close();
+    }
+  }
   // INIT ARMOR FORM
   private initArmorForm(armorToEdit?: Armor): void {
     this.armorForm = this.fb.group({
       type: [armorToEdit ? armorToEdit.type : undefined, [Validators.required]],
       rank: [armorToEdit ? armorToEdit.rank : undefined, [Validators.required]],
-      rarity: [
-        armorToEdit ? armorToEdit.rarity : undefined,
-        [Validators.required],
-      ],
+      rarity: [armorToEdit ? armorToEdit.rarity : undefined, [Validators.required]],
       name: [armorToEdit ? armorToEdit.name : undefined, [Validators.required]],
-      armorSetId: [
-        armorToEdit ? armorToEdit.armorSet.id : undefined,
-        [Validators.required],
-      ],
-      imageMale: [
-        armorToEdit ? armorToEdit.assets.imageMale : undefined,
-        [Validators.required],
-      ],
-      imageFemale: [
-        armorToEdit ? armorToEdit.assets.imageFemale : undefined,
-        [Validators.required],
-      ],
+      armorSetId: [armorToEdit ? armorToEdit.armorSet.id : undefined, [Validators.required]],
+      imageMale: [armorToEdit ? armorToEdit.assets.imageMale : undefined],
+      imageFemale: [armorToEdit ? armorToEdit.assets.imageFemale : undefined],
     });
   }
   // GET ARMOR FILTERED
