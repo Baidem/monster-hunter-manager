@@ -1,5 +1,5 @@
 export const environment = {
-  API_URL: 'http://localhost:8033/api/',
+  API_URL: 'https://mhw-db.com/',
   LOCAL_STORAGE: {
     TOKEN: 'auth_token'
   }

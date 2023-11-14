@@ -1,1 +1,29 @@
-<p>header works!</p>
+<header>
+  <div class="px-3 py-2 text-bg-success border-bottom">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+        <a href="/" class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-white text-decoration-none">
+          <fa-icon [icon]="iconLogo" class="me-1 fs-1"></fa-icon>
+          Monster Hunter Manager
+        </a>
+
+        <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small">
+          <li>
+            <a routerLink="/armor" class="nav-link text-white">
+              <fa-icon [icon]="iconHome" class="me-1"></fa-icon>
+              Home
+            </a>
+          </li>
+          <li *ngIf="isConnected$ | async">
+            <button
+            class="btn btn-outline-light"
+            (click)="onClickSignOut()">
+              <fa-icon [icon]="iconSignOut" class="me-1"></fa-icon>
+              Sign Out
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</header>

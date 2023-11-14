@@ -15,10 +15,8 @@ export class AuthService {
 
   private baseUrlApi: string = environment.API_URL;
   private resourceName: string = 'security';
-  private fullBaseUrlApi: string;
 
   constructor(private http: HttpClient, private localStorageManagerService: LocaleStorageManagerService) {
-    this.fullBaseUrlApi = this.baseUrlApi + this.resourceName;
     const token = this.localStorageManagerService.getData(environment.LOCAL_STORAGE.TOKEN);
     this.internalToken$.next(token);
   }
@@ -27,15 +25,28 @@ export class AuthService {
     return this.internalToken$.value;
   }
 
-  signIn(email: string, password: string, keepConnection: boolean): Promise<void | string> {
-    const obsHttp$ = this.http.post<{token: string}>(`${this.fullBaseUrlApi}/auth`, { username: email, password });
-    return firstValueFrom(obsHttp$) // renvoi une promesse. transforme observable en promesse.
-      .then((res: {token: string}) => {
-        this.internalToken$.next(res.token);
-        if(keepConnection) {
-          this.localStorageManagerService.saveData(environment.LOCAL_STORAGE.TOKEN, res.token);
+  // SIGN IN DE SONNY
+  signIn(
+    email: string,
+    password: string,
+    keepConnection: boolean
+  ): Promise<void | undefined> {
+    return new Promise((resolve, reject) => {
+      if (email === 'admin@admin.fr' && password === 'P@ssw0rd2023') {
+        if (keepConnection) {
+          this.localStorageManagerService.saveData(
+            environment.LOCAL_STORAGE.TOKEN,
+            'Sonny.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.SECRETJWTTOKEN'
+          );
         }
-      });
+        this.internalToken$.next(
+          'Sonny.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.SECRETJWTTOKEN'
+        );
+        resolve();
+      } else {
+        reject(Error('Incorrect identifiers !'));
+      }
+    });
   }
 
   signOut() {
@@ -43,3 +54,4 @@ export class AuthService {
     this.localStorageManagerService.removeData(environment.LOCAL_STORAGE.TOKEN);
   }
 }
+
