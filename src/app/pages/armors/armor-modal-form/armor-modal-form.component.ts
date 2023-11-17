@@ -37,7 +37,7 @@ export class ArmorModalFormComponent {
   triggerAddElement(): void {
     this.initArmorForm();
 
-    const modal = this.modalService.open(this.modalForm);
+    const modal = this.modalService.open(this.modalForm, { size: 'lg', backdrop: 'static' });
 
     modal.result
     .then(() => {
@@ -59,7 +59,7 @@ export class ArmorModalFormComponent {
   triggerEditElement(elementToEdit: Armor, isDetailsComponent: boolean) {
     this.initArmorForm(elementToEdit);
     this.selectedElementForEdition = elementToEdit;
-    const modal = this.modalService.open(this.modalForm);
+    const modal = this.modalService.open(this.modalForm, { size: 'lg', backdrop: 'static' });
 
     modal.result
     .then(() => {
@@ -90,7 +90,19 @@ export class ArmorModalFormComponent {
       type: [armorToEdit ? armorToEdit.type : undefined, [Validators.required]],
       rank: [armorToEdit ? armorToEdit.rank : undefined, [Validators.required]],
       rarity: [armorToEdit ? armorToEdit.rarity : undefined, [Validators.required]],
+
+      defenseBase: [armorToEdit ? armorToEdit.defense.base : undefined, [Validators.required]],
+      defenseMax: [armorToEdit ? armorToEdit.defense.max : undefined, [Validators.required]],
+      defenseAugmented: [armorToEdit ? armorToEdit.defense.augmented : undefined, [Validators.required]],
+
+      resistancesFire: [armorToEdit ? armorToEdit.resistances.fire : undefined, [Validators.required]],
+      resistancesWater: [armorToEdit ? armorToEdit.resistances.water : undefined, [Validators.required]],
+      resistancesIce: [armorToEdit ? armorToEdit.resistances.ice : undefined, [Validators.required]],
+      resistancesThunder: [armorToEdit ? armorToEdit.resistances.thunder : undefined, [Validators.required]],
+      resistancesDragon: [armorToEdit ? armorToEdit.resistances.dragon : undefined, [Validators.required]],
+
       armorSetId: [armorToEdit ? armorToEdit.armorSet.id : undefined, [Validators.required]],
+
       imageMale: [armorToEdit ? armorToEdit.imageMale : undefined], // optional
       imageFemale: [armorToEdit ? armorToEdit.imageFemale : undefined], // optional
     });

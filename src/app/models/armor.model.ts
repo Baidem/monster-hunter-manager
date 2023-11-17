@@ -148,10 +148,22 @@ export interface Armor {
 };
 // ARMOR FORM INTERFACE
 export interface ArmorForm {
+  name: string;
   type: string;
   rank: string;
   rarity: number;
-  name: string;
+  defense: {
+    base: number;
+    max: number;
+    augmented: number;
+  };
+  resistances: {
+    fire: number;
+    water: number;
+    ice: number;
+    thunder: number;
+    dragon: number;
+  };
   armorSetId: number;
   imageMale: string | null
   imageFemale: string | null

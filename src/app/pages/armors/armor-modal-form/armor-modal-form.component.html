@@ -1,10 +1,13 @@
 <!--/* MODAL FORM */-->
 <ng-template #modalForm let-modal>
+  <!--/* HEADER */-->
   <div class="modal-header text-bg-success">
+    <!--/* TITLE */-->
     <h4
       class="modal-title text-white text-bg-success"
       id="modal-title-user-form">{{ selectedElementForEdition ? 'EDIT' : 'ADD' }}
     </h4>
+    <!--/* BUTTON CLOSE */-->
     <button
       type="button"
       class="btn-close text-bg-light"
@@ -12,134 +15,281 @@
       (click)="modal.dismiss()"
     ></button>
   </div>
+  <!--/* BODY */-->
   <div class="modal-body">
+    <!--/* FORM */-->
     <form *ngIf="armorForm" [formGroup]="armorForm">
-      <div class="form-floating mt-2">
-        <input
-        type="text"
-        class="form-control"
-        id="floatingName"
-        placeholder="name"
-        formControlName="name"
-        >
-        <label for="floatingName">Name</label>
-          <app-form-errors
-            [group]="armorForm"
-            controlName="name"
-            controlLabel="Name">
-          </app-form-errors>
+      <div class="row">
+        <div class="col-lg-6">
+          <!--/* NAME */-->
+          <div class="form-floating mt-2">
+            <input
+              type="text"
+              class="form-control"
+              id="floatingName"
+              placeholder="name"
+              formControlName="name"
+            >
+            <label for="floatingName">Name</label>
+
+            <app-form-errors
+              [group]="armorForm"
+              controlName="name"
+              controlLabel="Name">
+            </app-form-errors>
+          </div>
+          <!--/* TYPE */-->
+          <div class="form-floating mt-2">
+            <input
+              type="text"
+              class="form-control"
+              id="floatingType"
+              placeholder="type"
+              formControlName="type"
+            >
+            <label for="floatingType">Type</label>
+
+            <app-form-errors
+              [group]="armorForm"
+              controlName="type"
+              controlLabel="Type">
+            </app-form-errors>
+          </div>
+          <!--/* RANK */-->
+          <div class="form-floating mt-2">
+            <input
+              type="text"
+              class="form-control"
+              id="floatingType"
+              placeholder="rank"
+              formControlName="rank"
+            >
+            <label for="floatingType">Rank</label>
+
+            <app-form-errors
+              [group]="armorForm"
+              controlName="rank"
+              controlLabel="Rank">
+            </app-form-errors>
+          </div>
+          <!--/* RARITY */-->
+          <div class="form-floating mt-2">
+            <input
+              type="number"
+              class="form-control"
+              id="floatingRarity"
+              placeholder="1"
+              formControlName="rarity"
+            >
+            <label for="floatingRarity">Rarity</label>
+
+            <app-form-errors
+              [group]="armorForm"
+              controlName="rarity"
+              controlLabel="Rarity">
+            </app-form-errors>
+          </div>
+          <!--/* DEFENSE BASE */-->
+          <div class="form-floating mt-2">
+            <input
+              type="number"
+              class="form-control"
+              id="floatingDefenseBase"
+              placeholder="1"
+              formControlName="defenseBase"
+            >
+            <label for="floatingRarity">Defense Base</label>
+
+            <app-form-errors
+              [group]="armorForm"
+              controlName="defenseBase"
+              controlLabel="Defense Base">
+            </app-form-errors>
+          </div>
+          <!--/* DEFENSE MAX */-->
+          <div class="form-floating mt-2">
+            <input
+              type="number"
+              class="form-control"
+              id="floatingDefenseMax"
+              placeholder="1"
+              formControlName="defenseMax"
+            >
+            <label for="floatingRarity">Defense Max</label>
+
+            <app-form-errors
+              [group]="armorForm"
+              controlName="defenseMax"
+              controlLabel="Defense Max">
+            </app-form-errors>
+          </div>
+          <!--/* DEFENSE AUGMENTED */-->
+          <div class="form-floating mt-2">
+            <input
+              type="number"
+              class="form-control"
+              id="floatingDefenseAugmented"
+              placeholder="1"
+              formControlName="defenseAugmented"
+            >
+            <label for="floatingRarity">Defense Augmented</label>
+
+            <app-form-errors
+              [group]="armorForm"
+              controlName="defenseAugmented"
+              controlLabel="Defense Augmented">
+            </app-form-errors>
+          </div>
+          <!--/* RESISTANCE FIRE */-->
+          <div class="form-floating mt-2">
+            <input
+              type="number"
+              class="form-control"
+              id="floatingResistancesFire"
+              placeholder="1"
+              formControlName="resistancesFire"
+            >
+            <label for="floatingRarity">Resistances Fire</label>
+
+            <app-form-errors
+              [group]="armorForm"
+              controlName="resistancesFire"
+              controlLabel="Resistances Fire">
+            </app-form-errors>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <!--/* RESISTANCE WATER */-->
+          <div class="form-floating mt-2">
+            <input
+              type="number"
+              class="form-control"
+              id="floatingResistancesWater"
+              placeholder="1"
+              formControlName="resistancesWater"
+            >
+            <label for="floatingRarity">Resistances Water</label>
+
+            <app-form-errors
+              [group]="armorForm"
+              controlName="resistancesWater"
+              controlLabel="Resistances Water">
+            </app-form-errors>
+          </div>
+          <!--/* RESISTANCE ICE */-->
+          <div class="form-floating mt-2">
+            <input
+              type="number"
+              class="form-control"
+              id="floatingResistancesIce"
+              placeholder="1"
+              formControlName="resistancesIce"
+            >
+            <label for="floatingRarity">Resistances Ice</label>
+
+            <app-form-errors
+              [group]="armorForm"
+              controlName="resistancesIce"
+              controlLabel="Resistances Ice">
+            </app-form-errors>
+          </div>
+          <!--/* RESISTANCE THUNDER */-->
+          <div class="form-floating mt-2">
+            <input
+              type="number"
+              class="form-control"
+              id="floatingResistancesThunder"
+              placeholder="1"
+              formControlName="resistancesThunder"
+            >
+            <label for="floatingRarity">Resistances Thunder</label>
+
+            <app-form-errors
+              [group]="armorForm"
+              controlName="resistancesThunder"
+              controlLabel="Resistances Thunder">
+            </app-form-errors>
+          </div>
+          <!--/* RESISTANCE DRAGON */-->
+          <div class="form-floating mt-2">
+            <input
+              type="number"
+              class="form-control"
+              id="floatingResistancesDragon"
+              placeholder="1"
+              formControlName="resistancesDragon"
+            >
+            <label for="floatingRarity">Resistances Dragon</label>
+
+            <app-form-errors
+              [group]="armorForm"
+              controlName="resistancesDragon"
+              controlLabel="Resistances Dragon">
+            </app-form-errors>
+          </div>
+          <!--/* ARMOR SET ID */-->
+          <div class="form-floating mt-2">
+            <input
+              type="number"
+              class="form-control"
+              id="floatingArmorSetId"
+              placeholder="1"
+              formControlName="armorSetId"
+            >
+            <label for="floatingArmorSetId">Armor Set Id</label>
+
+            <app-form-errors
+              [group]="armorForm"
+              controlName="armorSetId"
+              controlLabel="Armor Set Id">
+            </app-form-errors>
+          </div>
+          <!--/* IMAGE MALE */-->
+          <div class="form-floating mt-2">
+            <input
+              type="text"
+              class="form-control"
+              id="floatingImageMale"
+              placeholder="imageMale"
+              formControlName="imageMale"
+            >
+            <label for="floatingImageMale">Image Male (optional)</label>
+          </div>
+          <!--/* IMAGE FEMALE */-->
+          <div class="form-floating mt-2">
+            <input
+              type="text"
+              class="form-control"
+              id="floatingImageFemale"
+              placeholder="imageFemale"
+              formControlName="imageFemale"
+            >
+            <label for="floatingImageFemale">Image Female (optional)</label>
+          </div>
+        </div>
       </div>
-
-    <div class="form-floating mt-2">
-      <input
-      type="text"
-      class="form-control"
-      id="floatingType"
-      placeholder="type"
-      formControlName="type"
-      >
-      <label for="floatingType">Type</label>
-        <app-form-errors
-          [group]="armorForm"
-          controlName="type"
-          controlLabel="Type">
-        </app-form-errors>
-    </div>
-
-    <div class="form-floating mt-2">
-      <input
-      type="text"
-      class="form-control"
-      id="floatingType"
-      placeholder="rank"
-      formControlName="rank"
-      >
-      <label for="floatingType">Rank</label>
-        <app-form-errors
-          [group]="armorForm"
-          controlName="rank"
-          controlLabel="Rank">
-        </app-form-errors>
-    </div>
-
-    <div class="form-floating mt-2">
-      <input
-      type="number"
-      class="form-control"
-      id="floatingRarity"
-      placeholder="1"
-      formControlName="rarity"
-      >
-      <label for="floatingRarity">Rarity</label>
-        <app-form-errors
-          [group]="armorForm"
-          controlName="rarity"
-          controlLabel="Rarity">
-        </app-form-errors>
-    </div>
-
-    <div class="form-floating mt-2">
-      <input
-      type="number"
-      class="form-control"
-      id="floatingArmorSetId"
-      placeholder="1"
-      formControlName="armorSetId"
-      >
-      <label for="floatingArmorSetId">Armor Set Id</label>
-        <app-form-errors
-          [group]="armorForm"
-          controlName="armorSetId"
-          controlLabel="Armor Set Id">
-        </app-form-errors>
-    </div>
-
-    <div class="form-floating mt-2">
-      <input
-      type="text"
-      class="form-control"
-      id="floatingImageMale"
-      placeholder="imageMale"
-      formControlName="imageMale"
-      >
-      <label for="floatingImageMale">Image Male</label>
-        <!-- <app-form-errors
-          [group]="armorForm"
-          controlName="imageMale"
-          controlLabel="Image Male">
-        </app-form-errors> -->
-    </div>
-
-    <div class="form-floating mt-2">
-      <input
-      type="text"
-      class="form-control"
-      id="floatingImageFemale"
-      placeholder="imageFemale"
-      formControlName="imageFemale"
-      >
-      <label for="floatingImageFemale">Image Female</label>
-        <!-- <app-form-errors
-          [group]="armorForm"
-          controlName="imageFemale"
-          controlLabel="Image Female">
-        </app-form-errors> -->
-    </div>
-
     </form>
-
   </div>
+  <!--/* SEPARATOR */-->
   <div class="container-fluid border border-2 border-success"></div>
+  <!--/* FOOTER */-->
   <div class="modal-footer">
-    <button type="button" class="btn btn-dark text-warning" (click)="modal.dismiss()"
-    >CANCEL</button>
+    <!--/* CANCEL BUTTON */-->
+    <button
+      type="button"
+      class="btn btn-dark text-warning"
+      (click)="modal.dismiss()"
+    >
+      CANCEL
+    </button>
+    <!--/* SUBMIT BUTTON */-->
     <button
       type="button"
       class="btn btn-dark text-success"
       [disabled]="armorForm && armorForm.invalid"
       (click)="onSubmitElementForm(modal)"
-     >
+    >
       {{ selectedElementForEdition ? 'SUBMIT EDIT' : 'SUBMIT ADD' }}
     </button>
-    </div>
-  </ng-template>
+  </div>
+</ng-template>
