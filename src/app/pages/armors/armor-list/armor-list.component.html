@@ -1,176 +1,51 @@
 <!--/* ACTION BAR */-->
 <section>
-  <div class="container mt-2">
-    <div class="d-flex justify-content-between mb-2">
-      <input
-      type="text"
-      placeholder="Filter by name, type or rank"
-      class="input-group-text text-start"
-      size="50"
-      (input)="onInputSearchFilter($event)">
+  <div class="container-fluid shadow m-0">
+    <div class="container my-0">
+      <div class="row justify-content-center justify-content-lg-between">
+        <div class="col-auto py-2">
+          <input
+            type="text"
+            placeholder="Filter by name, type or rank"
+            class="input-group-text text-start shadow"
+            size="30"
+            (input)="onInputSearchFilter($event)"
+          >
+        </div>
 
-      <button
-        class="btn btn-success mb-2"
-        (click)="onClickAddElement(modalForm)"
-      >
-      NEW ARMOR
-      </button>
+        <div class="col-auto py-2">
+          <button
+            class="btn btn-success my-auto shadow"
+            (click)="onClickAddElement()"
+          >
+          NEW ARMOR
+          </button>
+        </div>
+      </div>
     </div>
   </div>
+  <div class="border border-2 border-success mb-3"></div>
 </section>
 
 <!--/* CARDS */-->
 <section>
   <div class="container mt-2">
-    <div class="row">
-      <div class="border">
-        <div
-        *ngFor="let armor of armors$ | async"
-          class="card"
-          style="width: 18rem;"
-         >
-          <img src="..." class="card-img-top" alt="...">
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-          </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">An item</li>
-            <li class="list-group-item">A second item</li>
-            <li class="list-group-item">A third item</li>
-          </ul>
-          <div class="card-body">
-            <a href="#" class="card-link">Card link</a>
-            <a href="#" class="card-link">Another link</a>
-          </div>
+    <div class="row justify-content-arround">
+      <ng-container *ngFor="let armor of armors$ | async">
+        <div class="col-auto mx-auto">
+          <app-armor-card
+          [armorInput]="armor"
+          (editElement)="onClickEditElement($event)"
+          (deletedElement)="onClickDeleteElement(modalDelete, $event)"
+          ></app-armor-card>
         </div>
-      </div>
+      </ng-container>
     </div>
   </div>
 </section>
 
 <!--/* MODAL FORM */-->
-<ng-template #modalForm let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-title-user-form">{{ selectedElementForEdition ? 'EDIT' : 'ADD' }}</h4>
-    <button
-      type="button"
-      class="btn-close"
-      aria-describedby="modal-title-form"
-      (click)="modal.dismiss()"
-    ></button>
-  </div>
-  <div class="modal-body">
-    <form *ngIf="armorForm" [formGroup]="armorForm">
-      <div class="form-floating mt-2">
-        <input
-        type="text"
-        class="form-control"
-        id="floatingName"
-        placeholder="name"
-        formControlName="name"
-        >
-        <label for="floatingName">Name</label>
-          <app-form-errors
-            [group]="armorForm"
-            controlName="name"
-            controlLabel="Name">
-          </app-form-errors>
-      </div>
-
-    <div class="form-floating mt-2">
-      <input
-      type="text"
-      class="form-control"
-      id="floatingType"
-      placeholder="type"
-      formControlName="type"
-      >
-      <label for="floatingType">Type</label>
-        <app-form-errors
-          [group]="armorForm"
-          controlName="type"
-          controlLabel="Type">
-        </app-form-errors>
-    </div>
-
-    <div class="form-floating mt-2">
-      <input
-      type="number"
-      class="form-control"
-      id="floatingRarity"
-      placeholder="1"
-      formControlName="rarity"
-      >
-      <label for="floatingRarity">Rarity</label>
-        <app-form-errors
-          [group]="armorForm"
-          controlName="rarity"
-          controlLabel="Rarity">
-        </app-form-errors>
-    </div>
-
-    <div class="form-floating mt-2">
-      <input
-      type="number"
-      class="form-control"
-      id="floatingArmorSetId"
-      placeholder="1"
-      formControlName="armorSetId"
-      >
-      <label for="floatingArmorSetId">Armor Set Id</label>
-        <app-form-errors
-          [group]="armorForm"
-          controlName="armorSetId"
-          controlLabel="Armor Set Id">
-        </app-form-errors>
-    </div>
-
-    <div class="form-floating mt-2">
-      <input
-      type="text"
-      class="form-control"
-      id="floatingImageMale"
-      placeholder="imageMale"
-      formControlName="imageMale"
-      >
-      <label for="floatingImageMale">Image Male</label>
-        <app-form-errors
-          [group]="armorForm"
-          controlName="imageMale"
-          controlLabel="Image Male">
-        </app-form-errors>
-    </div>
-
-    <div class="form-floating mt-2">
-      <input
-      type="text"
-      class="form-control"
-      id="floatingImageFemale"
-      placeholder="imageFemale"
-      formControlName="imageFemale"
-      >
-      <label for="floatingImageFemale">Image Female</label>
-        <app-form-errors
-          [group]="armorForm"
-          controlName="imageFemale"
-          controlLabel="Image Female">
-        </app-form-errors>
-    </div>
-
-    </form>
-
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-secondary" (click)="modal.dismiss()"
-    >Cancel</button>
-    <button
-    type="button"
-     class="btn btn-dark"
-     [disabled]="armorForm && armorForm.invalid"
-     (click)="onSubmitElementForm(modal)">{{ selectedElementForEdition ? 'EDIT' : 'ADD' }}</button>
-  </div>
-</ng-template>
+<app-armor-modal-form (refreshArmorsObservable)="refreshArmorsOservable()"></app-armor-modal-form>
 
 <!--/* TOAST DELETE SUCCESS */-->
 <ngb-toast
@@ -184,7 +59,7 @@ Successful deletion
 </ngb-toast>
 
 <!--/* MODAL DELETE ELEMENT */-->
-<ng-template #modalDeleteUser let-modal>
+<ng-template #modalDelete let-modal>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-title">Delete</h4>
     <button
@@ -196,7 +71,7 @@ Successful deletion
   </div>
   <div class="modal-body">
     <p>
-      <strong>Are you sure you want to delete the user <span
+      <strong>Are you sure you want to delete this item <span
         class="text-primary">{{selectedElementDeleteConfirmation?.name}}</span> ?</strong>
     </p>
     <p>

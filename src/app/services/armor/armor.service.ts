@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { firstValueFrom, map } from 'rxjs';
+import { Observable, firstValueFrom, map } from 'rxjs';
 import { Armor, ArmorForm, ArmorHttp } from 'src/app/models/armor.model';
 import { environment } from 'src/environments/environment.development';
 
@@ -24,7 +24,7 @@ export class ArmorService {
       map((armorsHttp: ArmorHttp[]) => armorsHttp.map((armorHttp: ArmorHttp) => Armor.mapperArmorHttpToArmor(armorHttp)))
 
       );
-      console.log(obsHttp$);
+      console.log(firstValueFrom(obsHttp$));
 
     return firstValueFrom(obsHttp$);
   }
@@ -35,7 +35,7 @@ export class ArmorService {
       .pipe(
         map((armorHttp: ArmorHttp) => Armor.mapperArmorHttpToArmor(armorHttp))
     );
-
+    console.log("Get by id : ", firstValueFrom(obsHttp$));
     return firstValueFrom(obsHttp$);
   }
   // ADD USER
@@ -44,7 +44,19 @@ export class ArmorService {
       .post(`${this.fullBaseUrlApi}/`, armorToAdd);
 
     return firstValueFrom(obsHttp$); // toPromise
+  }
+  // ADD USER FAKE
+  addFake(armorToAdd: ArmorForm): Promise<any> {
+    const obsHttp$ = new Promise((resolve, reject) => {
+      if (armorToAdd) {
+        resolve(armorToAdd);
+      } else {
+        reject(Error('Add error'));
+      }
+    });
+    console.log("FAKE ADD : ", obsHttp$);
 
+    return obsHttp$;
   }
   // EDIT USER
   edit(id: number, armorEdited: ArmorForm): Promise<any> {
@@ -53,11 +65,34 @@ export class ArmorService {
 
     return firstValueFrom(obsHttp$); // toPromise
   }
+  // EDIT USER FAKE
+  editFake(id: number, armorEdited: ArmorForm): Promise<any> {
+    const obsHttp$ = new Promise((resolve, reject) => {
+      if (armorEdited) {
+        resolve(armorEdited);
+      } else {
+        reject(Error('Edit error'));
+      }
+    });
+    console.log("FAKE EDIT : ", obsHttp$);
+
+    return obsHttp$;
+  }
   // DELETE BY ID
   deleteById(id: number): Promise<any> {
     const obsHttp$ = this.http
       .delete(`${this.fullBaseUrlApi}/${id}`);
 
+    return firstValueFrom(obsHttp$);
+  }
+  // DELETE BY ID FAKE
+  deleteByIdFake(id: number): Promise<any> {
+    const obsHttp$ = this.http
+    .get<ArmorHttp>(`${this.fullBaseUrlApi}/${id}`)
+    .pipe(
+      map((armorHttp: ArmorHttp) => Armor.mapperArmorHttpToArmor(armorHttp))
+      );
+    console.log("FAKE DELETE : ", firstValueFrom(obsHttp$));
     return firstValueFrom(obsHttp$);
   }
 }

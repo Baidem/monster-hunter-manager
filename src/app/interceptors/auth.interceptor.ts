@@ -17,11 +17,11 @@ export class AuthInterceptor implements HttpInterceptor {
     let toHandle = request;
 
     if(!request.url.includes('security')){
-      const token = this.authService.token as string
+      // const token = this.authService.token as string
 
-      toHandle = request.clone({
-        headers: request.headers.set('Authorization', `Bearer ${token}`)
-      })
+      // toHandle = request.clone({
+      //   headers: request.headers.set('Authorization', `Bearer ${token}`)
+      // })
     }
 
     return next.handle(toHandle);

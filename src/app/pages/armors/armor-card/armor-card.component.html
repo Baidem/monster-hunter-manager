@@ -1,0 +1,52 @@
+  <div class="mb-3">
+    <div class="card border border-2 border-success shadow" style="width: 18rem;"
+    >
+    <div class="card-img-top d-flex justify-content-center" >
+      <div>
+        <img
+          src="{{armorInput.imageMale}}"
+          class="img-fluid"
+          alt="image armor male"
+        >
+      </div>
+
+      <div>
+        <img
+        src="{{armorInput.imageFemale}}"
+        class="img-fluid"
+        alt="image armor female"
+        >
+      </div>
+    </div>
+
+      <div class="card-body">
+        <h5 class="card-title">{{armorInput.name}}</h5>
+        <p class="card-text">{{armorInput.type}}</p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">Rank : {{armorInput.rank}}</li>
+        <li class="list-group-item">Rarity : {{armorInput.rarity}}</li>
+        <li class="list-group-item">Defense max : {{armorInput.defense.max}}</li>
+      </ul>
+      <div class="card-body d-flex justify-content-center">
+        <a
+          [routerLink]="['/', 'armor', armorInput.id]"
+          class="btn btn-dark text-uppercase mx-2 shadow"
+        >
+        DETAILS
+        </a>
+
+        <button
+        class="btn btn-dark text-uppercase text-warning mx-2 shadow"
+        (click)="onClickEditElement()"
+        >EDIT</button>
+        <button
+        (click)="onClickDeleteElement()"
+        class="btn btn-dark text-uppercase mx-2 text-danger shadow"
+        >DELETE</button>
+      </div>
+    </div>
+  </div>
+
+
+

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject, Observable, combineLatest, debounceTime, map } from 'rxjs';
 import { Armor, ArmorForm } from 'src/app/models/armor.model';
 import { ArmorService } from 'src/app/services/armor/armor.service';
+import { ArmorModalFormComponent } from '../armor-modal-form/armor-modal-form.component';
 
 @Component({
   selector: 'app-armor-list',
@@ -20,6 +21,8 @@ export class ArmorListComponent implements OnInit {
   private searchFilterText$: BehaviorSubject<string | undefined> =
     new BehaviorSubject<string | undefined>(undefined);
 
+    @ViewChild(ArmorModalFormComponent) armorModalForm!: ArmorModalFormComponent;
+
   // CONSTRUCTOR
   constructor(
     private armorService: ArmorService,
@@ -31,7 +34,6 @@ export class ArmorListComponent implements OnInit {
   ngOnInit(): void {
     this.armors$ = this.getElementsFiltered();
     console.log(this.armors$);
-
   }
   // ON INPUT SEARCH FILTER
   onInputSearchFilter(evt: any): void {
@@ -39,42 +41,12 @@ export class ArmorListComponent implements OnInit {
     this.searchFilterText$.next(searchText);
   }
   // ON CLICK ADD ELEMENT
-  onClickAddElement(modalElementForm: any): void {
-    this.initArmorForm();
-    const modal = this.modalService.open(modalElementForm);
-
-    modal.result
-      .then(() => {
-        const elementForm: ArmorForm = {
-          ...this.armorForm?.value,
-        };
-
-        this.armorService.add(elementForm).then(() => {
-          this.armors$ = this.getElementsFiltered();
-        });
-      })
-      .catch(() => {});
+  onClickAddElement() {
+    this.armorModalForm.triggerAddElement();
   }
   // ON CLICK EDIT ELEMENT
-  onClickEditElement(modalUserForm: any, elementToEdit: Armor): void {
-    this.initArmorForm(elementToEdit);
-    this.selectedElementForEdition = elementToEdit;
-    const modal = this.modalService.open(modalUserForm);
-
-    modal.result
-      .then(() => {
-        const elementForm: ArmorForm = {
-          ...this.armorForm?.value,
-        };
-
-        this.armorService.edit(elementToEdit.id, elementForm).then(() => {
-          this.armors$ = this.getElementsFiltered();
-          this.selectedElementForEdition = undefined;
-        });
-      })
-      .catch(() => {
-        this.selectedElementForEdition = undefined;
-      });
+  onClickEditElement(elementToEdit: Armor) {
+    this.armorModalForm.triggerEditElement(elementToEdit, false);
   }
   // ON CLICK DELETE ELEMENT
   onClickDeleteElement(modalDelete: any, armor: Armor): void {
@@ -84,30 +56,22 @@ export class ArmorListComponent implements OnInit {
 
     modal.result
       .then(() => {
-        this.armorService.deleteById(armor.id).then(() => {
+        this.armorService.deleteByIdFake(armor.id).then(() => {
           this.showDeleteSuccessToast = true;
           this.armors$ = this.getElementsFiltered();
         });
       })
       .catch(() => {});
   }
-  //ON SUBMIT ELEMENT FORM
+  // ON SUBMIT ELEMENT FORM
   onSubmitElementForm(modal: any){
     if(this.armorForm?.valid){
       modal.close();
     }
   }
-  // INIT ARMOR FORM
-  private initArmorForm(armorToEdit?: Armor): void {
-    this.armorForm = this.fb.group({
-      type: [armorToEdit ? armorToEdit.type : undefined, [Validators.required]],
-      rank: [armorToEdit ? armorToEdit.rank : undefined, [Validators.required]],
-      rarity: [armorToEdit ? armorToEdit.rarity : undefined, [Validators.required]],
-      name: [armorToEdit ? armorToEdit.name : undefined, [Validators.required]],
-      armorSetId: [armorToEdit ? armorToEdit.armorSet.id : undefined, [Validators.required]],
-      imageMale: [armorToEdit ? armorToEdit.assets.imageMale : undefined],
-      imageFemale: [armorToEdit ? armorToEdit.assets.imageFemale : undefined],
-    });
+  // REFRESH ARMORS OBSERVABLE
+  refreshArmorsOservable(){
+    this.armors$ = this.getElementsFiltered();
   }
   // GET ARMOR FILTERED
   private getElementsFiltered(): Observable<Armor[]> {
@@ -129,4 +93,5 @@ export class ArmorListComponent implements OnInit {
       })
     );
   }
+
 }

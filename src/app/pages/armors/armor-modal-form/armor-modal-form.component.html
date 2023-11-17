@@ -1,0 +1,126 @@
+<!--/* MODAL FORM */-->
+<ng-template #modalForm let-modal>
+  <div class="modal-header text-bg-success">
+    <h4
+      class="modal-title text-white text-bg-success"
+      id="modal-title-user-form">{{ selectedElementForEdition ? 'EDIT' : 'ADD' }}
+    </h4>
+    <button
+      type="button"
+      class="btn-close text-bg-light"
+      aria-describedby="modal-title-form"
+      (click)="modal.dismiss()"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <form *ngIf="armorForm" [formGroup]="armorForm">
+      <div class="form-floating mt-2">
+        <input
+        type="text"
+        class="form-control"
+        id="floatingName"
+        placeholder="name"
+        formControlName="name"
+        >
+        <label for="floatingName">Name</label>
+          <app-form-errors
+            [group]="armorForm"
+            controlName="name"
+            controlLabel="Name">
+          </app-form-errors>
+      </div>
+
+    <div class="form-floating mt-2">
+      <input
+      type="text"
+      class="form-control"
+      id="floatingType"
+      placeholder="type"
+      formControlName="type"
+      >
+      <label for="floatingType">Type</label>
+        <app-form-errors
+          [group]="armorForm"
+          controlName="type"
+          controlLabel="Type">
+        </app-form-errors>
+    </div>
+
+    <div class="form-floating mt-2">
+      <input
+      type="number"
+      class="form-control"
+      id="floatingRarity"
+      placeholder="1"
+      formControlName="rarity"
+      >
+      <label for="floatingRarity">Rarity</label>
+        <app-form-errors
+          [group]="armorForm"
+          controlName="rarity"
+          controlLabel="Rarity">
+        </app-form-errors>
+    </div>
+
+    <div class="form-floating mt-2">
+      <input
+      type="number"
+      class="form-control"
+      id="floatingArmorSetId"
+      placeholder="1"
+      formControlName="armorSetId"
+      >
+      <label for="floatingArmorSetId">Armor Set Id</label>
+        <app-form-errors
+          [group]="armorForm"
+          controlName="armorSetId"
+          controlLabel="Armor Set Id">
+        </app-form-errors>
+    </div>
+
+    <div class="form-floating mt-2">
+      <input
+      type="text"
+      class="form-control"
+      id="floatingImageMale"
+      placeholder="imageMale"
+      formControlName="imageMale"
+      >
+      <label for="floatingImageMale">Image Male</label>
+        <app-form-errors
+          [group]="armorForm"
+          controlName="imageMale"
+          controlLabel="Image Male">
+        </app-form-errors>
+    </div>
+
+    <div class="form-floating mt-2">
+      <input
+      type="text"
+      class="form-control"
+      id="floatingImageFemale"
+      placeholder="imageFemale"
+      formControlName="imageFemale"
+      >
+      <label for="floatingImageFemale">Image Female</label>
+        <app-form-errors
+          [group]="armorForm"
+          controlName="imageFemale"
+          controlLabel="Image Female">
+        </app-form-errors>
+    </div>
+
+    </form>
+
+  </div>
+  <div class="container-fluid border border-2 border-success"></div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-dark text-warning" (click)="modal.dismiss()"
+    >CANCEL</button>
+    <button
+    type="button"
+     class="btn btn-dark text-success"
+     [disabled]="armorForm && armorForm.invalid"
+     (click)="onSubmitElementForm(modal)">{{ selectedElementForEdition ? 'SUBMIT EDIT' : 'SUBMIT ADD' }}</button>
+    </div>
+  </ng-template>

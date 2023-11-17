@@ -1,0 +1,99 @@
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Observable } from 'rxjs';
+import { Armor, ArmorForm } from 'src/app/models/armor.model';
+import { ArmorService } from 'src/app/services/armor/armor.service';
+
+@Component({
+  selector: 'app-armor-modal-form',
+  templateUrl: './armor-modal-form.component.html',
+  styleUrls: ['./armor-modal-form.component.css']
+})
+export class ArmorModalFormComponent {
+
+  // PROPERTIES
+  armor$?: Promise<Armor>
+  armors$?: Observable<Armor[]>;
+  armorForm?: FormGroup;
+  selectedElementForEdition?: Armor;
+  @ViewChild('modalForm') modalForm!: ElementRef;
+
+  // CONSTRUCTOR
+  constructor (
+    private armorService: ArmorService,
+    private modalService: NgbModal,
+    private fb: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
+
+  // OUTPUT
+  @Output() refreshArmorPromise: EventEmitter<number> = new EventEmitter<number>()
+  @Output() refreshArmorsObservable: EventEmitter<any> = new EventEmitter<any>()
+
+  // TRIGGER ADD ELEMENT
+  triggerAddElement(): void {
+    this.initArmorForm();
+
+    const modal = this.modalService.open(this.modalForm);
+
+    modal.result
+    .then(() => {
+      const elementForm: ArmorForm = {
+        ...this.armorForm?.value,
+      };
+
+      this.armorService.add(elementForm).then(() => {
+        this.refreshArmorsObservable.emit()
+      });
+    })
+    .catch(() => {
+
+    });
+  }
+
+  // TRIGGER EDIT ELEMENT
+  triggerEditElement(elementToEdit: Armor, isDetailsComponent: boolean) {
+    this.initArmorForm(elementToEdit);
+    this.selectedElementForEdition = elementToEdit;
+    const modal = this.modalService.open(this.modalForm);
+
+    modal.result
+    .then(() => {
+      console.log("DEBUG !!");
+      const elementForm: ArmorForm = {
+        ...this.armorForm?.value,
+      };
+
+      this.armorService.editFake(elementToEdit.id, elementForm).then(() => {
+        if (isDetailsComponent) this.refreshArmorPromise.emit(this.selectedElementForEdition!.id)
+        else this.refreshArmorsObservable.emit()
+          this.selectedElementForEdition = undefined;
+        });
+      })
+      .catch(() => {
+        this.selectedElementForEdition = undefined;
+      });
+  }
+  // ON SUBMIT ELEMENT FORM
+  onSubmitElementForm(modal: any){
+    if(this.armorForm?.valid){
+      modal.close();
+    }
+  }
+  // INIT ARMOR FORM
+  private initArmorForm(armorToEdit?: Armor): void {
+    this.armorForm = this.fb.group({
+      type: [armorToEdit ? armorToEdit.type : undefined, [Validators.required]],
+      rank: [armorToEdit ? armorToEdit.rank : undefined, [Validators.required]],
+      rarity: [armorToEdit ? armorToEdit.rarity : undefined, [Validators.required]],
+      name: [armorToEdit ? armorToEdit.name : undefined, [Validators.required]],
+      armorSetId: [armorToEdit ? armorToEdit.armorSet.id : undefined, [Validators.required]],
+      imageMale: [armorToEdit ? armorToEdit.imageMale : undefined],
+      imageFemale: [armorToEdit ? armorToEdit.imageFemale : undefined],
+    });
+  }
+
+}

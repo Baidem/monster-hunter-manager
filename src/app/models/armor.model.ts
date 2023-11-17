@@ -100,9 +100,9 @@ export interface ArmorHttp {
     bonus: null | string;
   };
   assets: {
-    imageMale: string;
-    imageFemale: string;
-  };
+    imageMale: string | null;
+    imageFemale: string | null
+  } | null;
   crafting: {
     materials: {
       quantity: number;
@@ -124,6 +124,18 @@ export interface Armor {
   rank: string;
   rarity: number;
   name: string;
+  defense: {
+    base: number;
+    max: number;
+    augmented: number;
+  };
+  resistances: {
+    fire: number;
+    water: number;
+    ice: number;
+    thunder: number;
+    dragon: number;
+  };
   armorSet: {
     id: number;
     rank: string;
@@ -131,10 +143,8 @@ export interface Armor {
     pieces: number[];
     bonus: null | string;
   };
-  assets: {
-    imageMale: string;
-    imageFemale: string;
-  };
+  imageMale: string | null
+  imageFemale: string | null
 };
 // ARMOR FORM INTERFACE
 export interface ArmorForm {
@@ -142,34 +152,46 @@ export interface ArmorForm {
   rank: string;
   rarity: number;
   name: string;
-  armorSet: {
-    id: number;
-  };
-  assets: {
-    imageMale: string;
-    imageFemale: string;
-  };
+  armorSetId: number;
+  imageMale: string | null
+  imageFemale: string | null
 };
 // ARMOR NAMESPACE
 export namespace Armor {
   export function mapperArmorHttpToArmor(armorHttp: ArmorHttp): Armor {
+    let mapperImageMale = null;
+    let mapperImageFemal = null;
+    if (armorHttp.assets !== null) {
+      mapperImageMale = armorHttp.assets.imageMale
+      mapperImageFemal = armorHttp.assets.imageFemale
+    }
     return {
       id: armorHttp.id,
       type: armorHttp.type,
       rank: armorHttp.rank,
       rarity: armorHttp.rarity,
       name: armorHttp.name,
+      defense: {
+        base: armorHttp.defense.base,
+        max: armorHttp.defense.max,
+        augmented: armorHttp.defense.augmented
+      },
+      resistances: {
+        fire: armorHttp.resistances.fire,
+        water: armorHttp.resistances.water,
+        ice: armorHttp.resistances.ice,
+        thunder: armorHttp.resistances.thunder,
+        dragon: armorHttp.resistances.dragon
+      },
       armorSet: {
         id: armorHttp.armorSet.id,
         rank: armorHttp.armorSet.rank,
         name: armorHttp.armorSet.name,
         pieces: armorHttp.armorSet.pieces,
-        bonus: armorHttp.armorSet.bonus,
+        bonus: armorHttp.armorSet.bonus
       },
-      assets: {
-        imageMale: armorHttp.assets.imageMale,
-        imageFemale: armorHttp.assets.imageFemale,
-      },
+      imageMale: mapperImageMale,
+      imageFemale: mapperImageFemal,
     };
   };
 };

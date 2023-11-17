@@ -14,6 +14,8 @@ import { ArmorListComponent } from './pages/armors/armor-list/armor-list.compone
 import { ArmorDetailsComponent } from './pages/armors/armor-details/armor-details.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { FormErrorsComponent } from './components/form-errors/form-errors/form-errors.component';
+import { ArmorCardComponent } from './pages/armors/armor-card/armor-card.component';7
+import { ArmorModalFormComponent } from './pages/armors/armor-modal-form/armor-modal-form.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { FormErrorsComponent } from './components/form-errors/form-errors/form-e
     ArmorDetailsComponent,
     SigninComponent,
     ErrorComponent,
-    FormErrorsComponent
+    FormErrorsComponent,
+    ArmorCardComponent,
+    ArmorModalFormComponent
   ],
   imports: [
     BrowserModule,
