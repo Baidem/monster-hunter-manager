@@ -48,6 +48,22 @@
 
     <div class="form-floating mt-2">
       <input
+      type="text"
+      class="form-control"
+      id="floatingType"
+      placeholder="rank"
+      formControlName="rank"
+      >
+      <label for="floatingType">Rank</label>
+        <app-form-errors
+          [group]="armorForm"
+          controlName="rank"
+          controlLabel="Rank">
+        </app-form-errors>
+    </div>
+
+    <div class="form-floating mt-2">
+      <input
       type="number"
       class="form-control"
       id="floatingRarity"
@@ -87,11 +103,11 @@
       formControlName="imageMale"
       >
       <label for="floatingImageMale">Image Male</label>
-        <app-form-errors
+        <!-- <app-form-errors
           [group]="armorForm"
           controlName="imageMale"
           controlLabel="Image Male">
-        </app-form-errors>
+        </app-form-errors> -->
     </div>
 
     <div class="form-floating mt-2">
@@ -103,11 +119,11 @@
       formControlName="imageFemale"
       >
       <label for="floatingImageFemale">Image Female</label>
-        <app-form-errors
+        <!-- <app-form-errors
           [group]="armorForm"
           controlName="imageFemale"
           controlLabel="Image Female">
-        </app-form-errors>
+        </app-form-errors> -->
     </div>
 
     </form>
@@ -118,9 +134,12 @@
     <button type="button" class="btn btn-dark text-warning" (click)="modal.dismiss()"
     >CANCEL</button>
     <button
-    type="button"
-     class="btn btn-dark text-success"
-     [disabled]="armorForm && armorForm.invalid"
-     (click)="onSubmitElementForm(modal)">{{ selectedElementForEdition ? 'SUBMIT EDIT' : 'SUBMIT ADD' }}</button>
+      type="button"
+      class="btn btn-dark text-success"
+      [disabled]="armorForm && armorForm.invalid"
+      (click)="onSubmitElementForm(modal)"
+     >
+      {{ selectedElementForEdition ? 'SUBMIT EDIT' : 'SUBMIT ADD' }}
+    </button>
     </div>
   </ng-template>

@@ -44,8 +44,9 @@ export class ArmorModalFormComponent {
       const elementForm: ArmorForm = {
         ...this.armorForm?.value,
       };
+      console.log("elementForm", elementForm);
 
-      this.armorService.add(elementForm).then(() => {
+      this.armorService.addFake(elementForm).then(() => {
         this.refreshArmorsObservable.emit()
       });
     })
@@ -62,7 +63,6 @@ export class ArmorModalFormComponent {
 
     modal.result
     .then(() => {
-      console.log("DEBUG !!");
       const elementForm: ArmorForm = {
         ...this.armorForm?.value,
       };
@@ -86,13 +86,13 @@ export class ArmorModalFormComponent {
   // INIT ARMOR FORM
   private initArmorForm(armorToEdit?: Armor): void {
     this.armorForm = this.fb.group({
+      name: [armorToEdit ? armorToEdit.name : undefined, [Validators.required]],
       type: [armorToEdit ? armorToEdit.type : undefined, [Validators.required]],
       rank: [armorToEdit ? armorToEdit.rank : undefined, [Validators.required]],
       rarity: [armorToEdit ? armorToEdit.rarity : undefined, [Validators.required]],
-      name: [armorToEdit ? armorToEdit.name : undefined, [Validators.required]],
       armorSetId: [armorToEdit ? armorToEdit.armorSet.id : undefined, [Validators.required]],
-      imageMale: [armorToEdit ? armorToEdit.imageMale : undefined],
-      imageFemale: [armorToEdit ? armorToEdit.imageFemale : undefined],
+      imageMale: [armorToEdit ? armorToEdit.imageMale : undefined], // optional
+      imageFemale: [armorToEdit ? armorToEdit.imageFemale : undefined], // optional
     });
   }
 
