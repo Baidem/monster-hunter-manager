@@ -8,8 +8,7 @@ import { Armor } from 'src/app/models/armor.model';
 })
 export class ArmorCardComponent {
 
-  @Input()
-  armorInput!: Armor;
+  @Input() armorInput!: Armor;
 
   @Output() editElement: EventEmitter<Armor> = new EventEmitter<Armor>()
   @Output() deletedElement: EventEmitter<Armor> = new EventEmitter<Armor>()
@@ -21,5 +20,4 @@ export class ArmorCardComponent {
   onClickDeleteElement () {
     this.deletedElement.emit(this.armorInput)
   }
-
 }

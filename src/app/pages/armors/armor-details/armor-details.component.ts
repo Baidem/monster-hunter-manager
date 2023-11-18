@@ -1,10 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Armor } from 'src/app/models/armor.model';
 import { ArmorService } from 'src/app/services/armor/armor.service';
 import { ArmorModalFormComponent } from '../armor-modal-form/armor-modal-form.component';
+import { ModalDeleteElementComponent } from 'src/app/components/modal-delete-element/modal-delete-element.component';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import { faArrowLeftLong, faPenToSquare, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-armor-details',
@@ -19,13 +21,16 @@ export class ArmorDetailsComponent {
   showDeleteSuccessToast: boolean = false;
   armorForm?: FormGroup;
   modalOpened = false;
+  iconBack: IconDefinition = faArrowLeftLong;
+  iconEdit: IconDefinition = faPenToSquare;
+  iconDelete: IconDefinition = faTrash;
 
   @ViewChild(ArmorModalFormComponent) armorModalForm!: ArmorModalFormComponent;
+  @ViewChild(ModalDeleteElementComponent) modalDeleteViewChild!: ModalDeleteElementComponent;
 
   // CONSTRUCTOR
   constructor (
     private armorService: ArmorService,
-    private modalService: NgbModal,
     private router: Router,
     private route: ActivatedRoute
     ) {}
@@ -46,22 +51,23 @@ export class ArmorDetailsComponent {
   onClickEditElement(elementToEdit: Armor) {
     this.armorModalForm.triggerEditElement(elementToEdit, true);
   }
-  // ON CLICK DELETE ELEMENT
-  onClickDeleteElement(modalDelete: any, armor: Armor): void {
-    this.selectedElementDeleteConfirmation = armor;
-
-    const modal = this.modalService.open(modalDelete);
-
-    modal.result
-      .then(() => {
-        this.armorService.deleteByIdFake(armor.id).then(() => {
-          this.showDeleteSuccessToast = true;
-          setTimeout(() => {
-            this.router.navigate(['/armor']);
-          }, 4000);
-        });
-      })
-      .catch(() => {});
+  // ON CLICK DELETE BUTTON
+  onClickDeleteButton(armor: Armor): void {
+    this.selectedElementDeleteConfirmation = armor
+    this.modalDeleteViewChild.triggerDeleteModal();
+  }
+  // DELETE ELEMENT
+  deleteElement(): void {
+    const id = this.selectedElementDeleteConfirmation?.id;
+    if(id){
+      this.armorService.deleteByIdFake(id).then(() => {
+        this.showDeleteSuccessToast = true;
+        setTimeout(() => {
+          this.router.navigate(['/armor']);
+        }, 4000);
+      }).catch(() => {});
+    }
+    this.selectedElementDeleteConfirmation = undefined;
   }
   // REFRESH ARMOR PROMISE
   refreshArmorPromise(id: number){

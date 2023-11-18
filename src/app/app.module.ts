@@ -16,6 +16,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { FormErrorsComponent } from './components/form-errors/form-errors/form-errors.component';
 import { ArmorCardComponent } from './pages/armors/armor-card/armor-card.component';7
 import { ArmorModalFormComponent } from './pages/armors/armor-modal-form/armor-modal-form.component';
+import { ModalDeleteElementComponent } from './components/modal-delete-element/modal-delete-element.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { ArmorModalFormComponent } from './pages/armors/armor-modal-form/armor-m
     ErrorComponent,
     FormErrorsComponent,
     ArmorCardComponent,
-    ArmorModalFormComponent
+    ArmorModalFormComponent,
+    ModalDeleteElementComponent
   ],
   imports: [
     BrowserModule,

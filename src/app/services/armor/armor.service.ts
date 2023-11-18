@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, firstValueFrom, map } from 'rxjs';
+import { firstValueFrom, map } from 'rxjs';
 import { Armor, ArmorForm, ArmorHttp } from 'src/app/models/armor.model';
 import { environment } from 'src/environments/environment.development';
 
@@ -22,10 +22,7 @@ export class ArmorService {
     .get<ArmorHttp[]>(`${this.fullBaseUrlApi}`)
     .pipe(
       map((armorsHttp: ArmorHttp[]) => armorsHttp.map((armorHttp: ArmorHttp) => Armor.mapperArmorHttpToArmor(armorHttp)))
-
       );
-      console.log(firstValueFrom(obsHttp$));
-
     return firstValueFrom(obsHttp$);
   }
   // GET BY ID
@@ -35,17 +32,16 @@ export class ArmorService {
       .pipe(
         map((armorHttp: ArmorHttp) => Armor.mapperArmorHttpToArmor(armorHttp))
     );
-    console.log("Get by id : ", firstValueFrom(obsHttp$));
     return firstValueFrom(obsHttp$);
   }
-  // ADD USER
+  // ADD
   add(armorToAdd: ArmorForm): Promise<any> {
     const obsHttp$ = this.http
       .post(`${this.fullBaseUrlApi}/`, armorToAdd);
 
     return firstValueFrom(obsHttp$); // toPromise
   }
-  // ADD USER FAKE
+  // ADD FAKE
   addFake(armorToAdd: ArmorForm): Promise<any> {
     const obsHttp$ = new Promise((resolve, reject) => {
       if (armorToAdd) {
@@ -58,15 +54,17 @@ export class ArmorService {
 
     return obsHttp$;
   }
-  // EDIT USER
+  // EDIT
   edit(id: number, armorEdited: ArmorForm): Promise<any> {
     const obsHttp$ = this.http
       .put(`${this.fullBaseUrlApi}/${id}`, armorEdited);
 
     return firstValueFrom(obsHttp$); // toPromise
   }
-  // EDIT USER FAKE
+  // EDIT FAKE
   editFake(id: number, armorEdited: ArmorForm): Promise<any> {
+    console.log(armorEdited);
+
     const obsHttp$ = new Promise((resolve, reject) => {
       if (armorEdited) {
         resolve(armorEdited);

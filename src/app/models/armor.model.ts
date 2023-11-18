@@ -164,7 +164,9 @@ export interface ArmorForm {
     thunder: number;
     dragon: number;
   };
-  armorSetId: number;
+  armorSet: {
+    id: number;
+  };
   imageMale: string | null
   imageFemale: string | null
 };

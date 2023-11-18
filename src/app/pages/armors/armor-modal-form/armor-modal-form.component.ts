@@ -1,6 +1,5 @@
 import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
 import { Armor, ArmorForm } from 'src/app/models/armor.model';
@@ -25,8 +24,6 @@ export class ArmorModalFormComponent {
     private armorService: ArmorService,
     private modalService: NgbModal,
     private fb: FormBuilder,
-    private router: Router,
-    private route: ActivatedRoute
   ) {}
 
   // OUTPUT
@@ -42,7 +39,27 @@ export class ArmorModalFormComponent {
     modal.result
     .then(() => {
       const elementForm: ArmorForm = {
-        ...this.armorForm?.value,
+          name: this.armorForm?.value.name,
+          type: this.armorForm?.value.type,
+          rank: this.armorForm?.value.rank,
+          rarity: this.armorForm?.value.rarity,
+          defense: {
+            base: this.armorForm?.value.base,
+            max: this.armorForm?.value.max,
+            augmented: this.armorForm?.value.augmented
+          },
+          resistances: {
+            fire: this.armorForm?.value.resistancesFire,
+            water: this.armorForm?.value.resistancesWater,
+            ice: this.armorForm?.value.resistancesWater,
+            thunder: this.armorForm?.value.resistancesThunder,
+            dragon: this.armorForm?.value.resistancesDragon,
+          },
+          armorSet: {
+            id: this.armorForm?.value.armorSetId
+          },
+          imageMale: this.armorForm?.value.imageMale,
+          imageFemale: this.armorForm?.value.imageFemale,
       };
       console.log("elementForm", elementForm);
 
@@ -64,8 +81,28 @@ export class ArmorModalFormComponent {
     modal.result
     .then(() => {
       const elementForm: ArmorForm = {
-        ...this.armorForm?.value,
-      };
+        name: this.armorForm?.value.name,
+        type: this.armorForm?.value.type,
+        rank: this.armorForm?.value.rank,
+        rarity: this.armorForm?.value.rarity,
+        defense: {
+          base: this.armorForm?.value.base,
+          max: this.armorForm?.value.max,
+          augmented: this.armorForm?.value.augmented
+        },
+        resistances: {
+          fire: this.armorForm?.value.resistancesFire,
+          water: this.armorForm?.value.resistancesWater,
+          ice: this.armorForm?.value.resistancesWater,
+          thunder: this.armorForm?.value.resistancesThunder,
+          dragon: this.armorForm?.value.resistancesDragon,
+        },
+        armorSet: {
+          id: this.armorForm?.value.armorSetId
+        },
+        imageMale: this.armorForm?.value.imageMale,
+        imageFemale: this.armorForm?.value.imageFemale,
+    };
 
       this.armorService.editFake(elementToEdit.id, elementForm).then(() => {
         if (isDetailsComponent) this.refreshArmorPromise.emit(this.selectedElementForEdition!.id)

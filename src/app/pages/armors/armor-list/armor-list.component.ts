@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FormGroup } from '@angular/forms';
 import { BehaviorSubject, Observable, combineLatest, debounceTime, map } from 'rxjs';
-import { Armor, ArmorForm } from 'src/app/models/armor.model';
+import { Armor } from 'src/app/models/armor.model';
 import { ArmorService } from 'src/app/services/armor/armor.service';
 import { ArmorModalFormComponent } from '../armor-modal-form/armor-modal-form.component';
+import { ModalDeleteElementComponent } from 'src/app/components/modal-delete-element/modal-delete-element.component';
+import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
+import { faMagnifyingGlass, faManatSign, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-armor-list',
@@ -13,6 +15,9 @@ import { ArmorModalFormComponent } from '../armor-modal-form/armor-modal-form.co
 })
 export class ArmorListComponent implements OnInit {
   // PROPERTIES
+  iconAdd: IconDefinition = faPlus;
+  iconSearch: IconDefinition = faMagnifyingGlass;
+  loading = true;
   armors$?: Observable<Armor[]>;
   selectedElementDeleteConfirmation?: Armor;
   showDeleteSuccessToast: boolean = false;
@@ -21,19 +26,17 @@ export class ArmorListComponent implements OnInit {
   private searchFilterText$: BehaviorSubject<string | undefined> =
     new BehaviorSubject<string | undefined>(undefined);
 
-    @ViewChild(ArmorModalFormComponent) armorModalForm!: ArmorModalFormComponent;
+  @ViewChild(ArmorModalFormComponent) armorModalForm!: ArmorModalFormComponent;
+  @ViewChild(ModalDeleteElementComponent) modalDeleteViewChild!: ModalDeleteElementComponent;
 
   // CONSTRUCTOR
   constructor(
     private armorService: ArmorService,
-    private modalService: NgbModal,
-    private fb: FormBuilder
   ) {}
 
   // ON INIT
   ngOnInit(): void {
     this.armors$ = this.getElementsFiltered();
-    console.log(this.armors$);
   }
   // ON INPUT SEARCH FILTER
   onInputSearchFilter(evt: any): void {
@@ -48,20 +51,21 @@ export class ArmorListComponent implements OnInit {
   onClickEditElement(elementToEdit: Armor) {
     this.armorModalForm.triggerEditElement(elementToEdit, false);
   }
-  // ON CLICK DELETE ELEMENT
-  onClickDeleteElement(modalDelete: any, armor: Armor): void {
-    this.selectedElementDeleteConfirmation = armor;
-
-    const modal = this.modalService.open(modalDelete);
-
-    modal.result
-      .then(() => {
-        this.armorService.deleteByIdFake(armor.id).then(() => {
-          this.showDeleteSuccessToast = true;
-          this.armors$ = this.getElementsFiltered();
-        });
-      })
-      .catch(() => {});
+  // ON CLICK DELETE BUTTON
+  onClickDeleteButton(armor: Armor): void {
+    this.selectedElementDeleteConfirmation = armor
+    this.modalDeleteViewChild.triggerDeleteModal();
+  }
+  // DELETE ELEMENT
+  deleteElement(): void {
+    const id = this.selectedElementDeleteConfirmation?.id;
+    if(id){
+      this.armorService.deleteByIdFake(id).then(() => {
+        this.showDeleteSuccessToast = true;
+        this.armors$ = this.getElementsFiltered();
+      }).catch(() => {});
+    }
+    this.selectedElementDeleteConfirmation = undefined;
   }
   // ON SUBMIT ELEMENT FORM
   onSubmitElementForm(modal: any){
