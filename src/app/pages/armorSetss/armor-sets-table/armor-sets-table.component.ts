@@ -17,6 +17,8 @@ export class ArmorSetsTableComponent implements OnInit {
   armorsSets$?: Observable<ArmorSets[]>;
   loadingArmorsSets = true;
 
+  openbyIdSet: number = -1;
+
   private searchFilterText$: BehaviorSubject<string | undefined> =
   new BehaviorSubject<string | undefined>(undefined);
 
@@ -28,6 +30,10 @@ export class ArmorSetsTableComponent implements OnInit {
   // ON INIT
   ngOnInit(): void {
     this.refreshArmorsSetsObservable();
+  }
+
+  onClickPieces(id: number) {
+    this.openbyIdSet = id === this.openbyIdSet ? -1 : id;
   }
 
   // ON INPUT SEARCH FILTER

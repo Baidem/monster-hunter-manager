@@ -57,19 +57,23 @@
       "bonus": null
   },
 */
+
+import { Armor, ArmorHttp } from "./armor.model";
+
 // ARMOR SETS HTTP INTERFACE
 export interface ArmorSetsHttp {
   id: number;
   rank: string;
   name: string;
-  pieces: any[];
+  pieces: ArmorHttp[];
 };
 // ARMOR SETS INTERFACE
 export interface ArmorSets {
   id: number;
   name: string;
   rank: string;
-  pieces: string[];
+  pieces: Armor[];
+  resumePieces: string[];
 };
 // ARMOR SETS FORM INTERFACE
 export interface ArmorSetsForm {
@@ -79,15 +83,14 @@ export interface ArmorSetsForm {
 // ARMOR SETS NAMESPACE
 export namespace ArmorSets {
   export function mapperArmorSetsHttpToArmorSets(armorSetsHttp: ArmorSetsHttp): ArmorSets {
-    let pieceList: string[] = ["re", "dqs"];
-    for (let index = 0; index < armorSetsHttp.pieces.length; index++) {
-      pieceList[index] = ` id: ${armorSetsHttp.pieces[index].id} name: ${armorSetsHttp.pieces[index].name}`;
-    }
+    const armorPieces: Armor[] = armorSetsHttp.pieces.map((piece) => Armor.mapperArmorHttpToArmor(piece));
+    const resumePiecesSt: string[] = armorSetsHttp.pieces.map(piece => `id: ${piece.id} name: ${piece.name}`);
     return {
       id: armorSetsHttp.id,
       name: armorSetsHttp.name,
       rank: armorSetsHttp.rank,
-      pieces: pieceList,
+      pieces: armorPieces,
+      resumePieces: resumePiecesSt,
     };
   };
 };

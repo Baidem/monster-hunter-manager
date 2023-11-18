@@ -26,4 +26,15 @@ export class ArmorSetsService {
       );
     return firstValueFrom(obsHttp$);
   }
+    // GET BY ID
+    getById(id: number): Promise<ArmorSets> {
+      const obsHttp$ = this.http
+        .get<ArmorSetsHttp>(`${this.fullBaseUrlApi}/${id}`)
+        .pipe(
+          map((armorSetsHttp: ArmorSetsHttp) => ArmorSets.mapperArmorSetsHttpToArmorSets(armorSetsHttp))
+      );
+      return firstValueFrom(obsHttp$);
+    }
+
+
 }

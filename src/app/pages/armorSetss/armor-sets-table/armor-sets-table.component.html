@@ -52,12 +52,45 @@
           </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let armorSets of armorsSets$ | async">
-              <th scope="row">{{armorSets.id}}</th>
-              <td>{{armorSets.name}}</td>
-              <td>{{armorSets.rank}}</td>
-              <td>{{armorSets.pieces}}</td>
-            </tr>
+            <ng-container *ngFor="let armorSets of armorsSets$ | async">
+              <tr *ngFor="let armorSets of armorsSets$ | async">
+                <th scope="row">{{armorSets.id}}</th>
+                <td>{{armorSets.name}}</td>
+                <td>{{armorSets.rank}}</td>
+                <td>
+                  <div
+                    (click)="onClickPieces(armorSets.id)"
+                    class="table-link"
+                  >
+                    {{armorSets.resumePieces}}
+                  </div>
+                  <div
+                    *ngIf="openbyIdSet === armorSets.id"
+                    class="stretched-link"
+                  >
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="card shadow">
+                        <div class="card-header">
+                          Featured
+                        </div>
+                        <ul class="list-group list-group-flush">
+                          <li class="list-group-item">An item</li>
+                          <li class="list-group-item">A second item</li>
+                          <li class="list-group-item">A third item</li>
+                        </ul>
+                      </div>
+
+                    </div>
+                  </div>
+
+
+                  </div>
+
+                </td>
+              </tr>
+            </ng-container>
+
           </tbody>
         </table>
       </div>
