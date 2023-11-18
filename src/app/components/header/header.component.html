@@ -13,6 +13,12 @@
                 Armors
               </a>
             </li>
+            <li>
+              <a routerLink="/armor/sets" class="nav-link text-white">
+                <fa-icon [icon]="iconSets" class="me-1"></fa-icon>
+                Sets
+              </a>
+            </li>
             <li *ngIf="isConnected$ | async">
               <button
               class="btn btn-outline-light"

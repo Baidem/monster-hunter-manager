@@ -6,7 +6,7 @@ import { ArmorService } from 'src/app/services/armor/armor.service';
 import { ArmorModalFormComponent } from '../armor-modal-form/armor-modal-form.component';
 import { ModalDeleteElementComponent } from 'src/app/components/modal-delete-element/modal-delete-element.component';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
-import { faMagnifyingGlass, faManatSign, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-armor-list',
@@ -103,5 +103,4 @@ export class ArmorListComponent implements OnInit {
       })
     );
   }
-
 }

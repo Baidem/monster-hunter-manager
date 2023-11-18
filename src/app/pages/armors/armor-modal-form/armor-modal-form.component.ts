@@ -144,5 +144,4 @@ export class ArmorModalFormComponent {
       imageFemale: [armorToEdit ? armorToEdit.imageFemale : undefined], // optional
     });
   }
-
 }

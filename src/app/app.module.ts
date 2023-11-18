@@ -17,6 +17,7 @@ import { FormErrorsComponent } from './components/form-errors/form-errors/form-e
 import { ArmorCardComponent } from './pages/armors/armor-card/armor-card.component';7
 import { ArmorModalFormComponent } from './pages/armors/armor-modal-form/armor-modal-form.component';
 import { ModalDeleteElementComponent } from './components/modal-delete-element/modal-delete-element.component';
+import { ArmorSetsTableComponent } from './pages/armorSetss/armor-sets-table/armor-sets-table.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ModalDeleteElementComponent } from './components/modal-delete-element/m
     FormErrorsComponent,
     ArmorCardComponent,
     ArmorModalFormComponent,
-    ModalDeleteElementComponent
+    ModalDeleteElementComponent,
+    ArmorSetsTableComponent
   ],
   imports: [
     BrowserModule,

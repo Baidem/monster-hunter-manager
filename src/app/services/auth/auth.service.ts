@@ -25,7 +25,7 @@ export class AuthService {
     return this.internalToken$.value;
   }
 
-  // SIGN IN DE SONNY
+  // SIGN IN BY SONNY
   signIn(
     email: string,
     password: string,

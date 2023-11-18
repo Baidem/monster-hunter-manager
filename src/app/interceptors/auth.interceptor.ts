@@ -16,13 +16,19 @@ export class AuthInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     let toHandle = request;
 
-    if(!request.url.includes('security')){
-      // const token = this.authService.token as string
+    /** TODO
+     * When the Api has had an authentication update,
+     * we'll need to adapt this code so that the
+     * authentication token is integrated into the header
+     * of requests that require authentication.
+     */
+    // if(!request.url.includes('security')){
+    //   const token = this.authService.token as string
 
-      // toHandle = request.clone({
-      //   headers: request.headers.set('Authorization', `Bearer ${token}`)
-      // })
-    }
+    //   toHandle = request.clone({
+    //     headers: request.headers.set('Authorization', `Bearer ${token}`)
+    //   })
+    // }
 
     return next.handle(toHandle);
   }

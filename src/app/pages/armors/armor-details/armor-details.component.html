@@ -1,7 +1,14 @@
+<!--/* TITLE */-->
+<section>
+  <div class="container text-center text-bg-success py-1 my-4 shadow">
+    <h1>Armor details</h1>
+  </div>
+</section>
+
 <!--/* CARD DETAILS */-->
 <div
   *ngIf="(armor$ | async) as armor"
-  class="container mt-5"
+  class="container"
   >
   <div class="card border border-2 border-success shadow">
     <div class="card-img-top d-flex justify-content-around" >
@@ -91,7 +98,7 @@
 <!--/* TOAST DELETE SUCCESS */-->
 <ngb-toast
   *ngIf="showDeleteSuccessToast"
-  class="position-fixed top-0 end-0 p-1 m-3 bg-success text-light"
+  class="position-fixed top-50 start-50 translate-middle bg-success text-center text-light border border-2 border-dark shadow"
   [autohide]="true"
   [delay]="4000"
   (hidden)="showDeleteSuccessToast = false"
@@ -104,4 +111,3 @@ Successful deletion
   [name]="selectedElementDeleteConfirmation?.name"
   (deleteElement)="deleteElement()"
 ></app-modal-delete-element>
-
