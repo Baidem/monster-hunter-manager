@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment.development';
   providedIn: 'root'
 })
 export class ArmorService {
-  // 'https://mhw-db.com/armor'
+  // Url api : 'https://mhw-db.com/armor'
   private baseUrlApi: string = environment.API_URL;
   private resourceName: string = 'armor';
   private fullBaseUrlApi: string;
@@ -34,6 +34,15 @@ export class ArmorService {
     );
     return firstValueFrom(obsHttp$);
   }
+
+  /** TODO
+   * Until the Api delete function
+   * has been developed, use the addFake()
+   * function in the armor-list.component.ts component.
+   *
+   * When the Api's delete function has been updated,
+   * replace it with add().
+   */
   // ADD
   add(armorToAdd: ArmorForm): Promise<any> {
     const obsHttp$ = this.http
@@ -54,6 +63,16 @@ export class ArmorService {
 
     return obsHttp$;
   }
+
+  /** TODO
+   * TODO
+   * Until the Api edit function
+   * has been developed, use the editFake()
+   * function in the armor-list.component.ts component.
+   *
+   * When the Api's delete function has been updated,
+   * replace it with edit().
+   */
   // EDIT
   edit(id: number, armorEdited: ArmorForm): Promise<any> {
     const obsHttp$ = this.http
@@ -76,6 +95,15 @@ export class ArmorService {
 
     return obsHttp$;
   }
+
+  /** TODO
+   * Until the Api delete function
+   * has been developed, use the deleteByIdFake()
+   * function in the armor-list.component.ts component.
+   *
+   * When the Api's delete function has been updated,
+   * replace it with deleteById().
+   */
   // DELETE BY ID
   deleteById(id: number): Promise<any> {
     const obsHttp$ = this.http

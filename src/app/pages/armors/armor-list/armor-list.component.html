@@ -3,6 +3,7 @@
   <div class="container-fluid shadow m-0">
     <div class="container my-0">
       <div class="row justify-content-center justify-content-lg-between">
+        <!--/* search bar */-->
         <div class="col-auto py-2">
           <div class="d-flex align-items-center">
             <label for="searchBar" class="my-auro me-2">
@@ -18,7 +19,7 @@
             >
           </div>
         </div>
-
+        <!--/* button new armor */-->
         <div class="col-auto py-2">
           <button
             class="btn btn-success my-auto shadow"
@@ -36,6 +37,11 @@
 
 <!--/* CARDS */-->
 <section>
+  <!--/* spinner */-->
+  <div class="position-fixed top-50 start-50 translate-middle" *ngIf="loadingArmors">
+    <div class="spinner-border"></div>
+  </div>
+  <!--/* list */-->
   <div class="container mt-2">
     <div class="row justify-content-arround">
       <ng-container *ngFor="let armor of armors$ | async">
@@ -53,7 +59,7 @@
 
 <!--/* MODAL FORM */-->
 <app-armor-modal-form
-  (refreshArmorsObservable)="refreshArmorsOservable()"
+  (refreshArmorsObservable)="refreshArmorsObservable()"
 ></app-armor-modal-form>
 
 <!--/* TOAST DELETE SUCCESS */-->

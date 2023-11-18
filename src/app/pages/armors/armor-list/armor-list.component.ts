@@ -17,8 +17,8 @@ export class ArmorListComponent implements OnInit {
   // PROPERTIES
   iconAdd: IconDefinition = faPlus;
   iconSearch: IconDefinition = faMagnifyingGlass;
-  loading = true;
   armors$?: Observable<Armor[]>;
+  loadingArmors = true;
   selectedElementDeleteConfirmation?: Armor;
   showDeleteSuccessToast: boolean = false;
   selectedElementForEdition?: Armor;
@@ -36,7 +36,7 @@ export class ArmorListComponent implements OnInit {
 
   // ON INIT
   ngOnInit(): void {
-    this.armors$ = this.getElementsFiltered();
+    this.refreshArmorsObservable();
   }
   // ON INPUT SEARCH FILTER
   onInputSearchFilter(evt: any): void {
@@ -62,7 +62,7 @@ export class ArmorListComponent implements OnInit {
     if(id){
       this.armorService.deleteByIdFake(id).then(() => {
         this.showDeleteSuccessToast = true;
-        this.armors$ = this.getElementsFiltered();
+        this.refreshArmorsObservable();
       }).catch(() => {});
     }
     this.selectedElementDeleteConfirmation = undefined;
@@ -74,9 +74,15 @@ export class ArmorListComponent implements OnInit {
     }
   }
   // REFRESH ARMORS OBSERVABLE
-  refreshArmorsOservable(){
+  refreshArmorsObservable() {
+    this.loadingArmors = true;
     this.armors$ = this.getElementsFiltered();
+    this.armors$?.subscribe((armors) => {
+      console.log(armors.length + " armors have been loaded");
+      this.loadingArmors = false;
+    });
   }
+
   // GET ARMOR FILTERED
   private getElementsFiltered(): Observable<Armor[]> {
     return combineLatest([
