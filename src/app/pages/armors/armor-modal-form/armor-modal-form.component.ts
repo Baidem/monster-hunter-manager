@@ -17,6 +17,8 @@ export class ArmorModalFormComponent {
   armors$?: Observable<Armor[]>;
   armorForm?: FormGroup;
   selectedElementForEdition?: Armor;
+  showEditSuccessToast: boolean = false;
+  showAddSuccessToast: boolean = false;
   @ViewChild('modalForm') modalForm!: ElementRef;
 
   // CONSTRUCTOR
@@ -64,7 +66,8 @@ export class ArmorModalFormComponent {
       console.log("elementForm", elementForm);
 
       this.armorService.addFake(elementForm).then(() => {
-        this.refreshArmorsObservable.emit()
+        this.refreshArmorsObservable.emit();
+        this.showAddSuccessToast = true;
       });
     })
     .catch(() => {
@@ -105,9 +108,10 @@ export class ArmorModalFormComponent {
     };
 
       this.armorService.editFake(elementToEdit.id, elementForm).then(() => {
-        if (isDetailsComponent) this.refreshArmorPromise.emit(this.selectedElementForEdition!.id)
-        else this.refreshArmorsObservable.emit()
+        if (isDetailsComponent) this.refreshArmorPromise.emit(this.selectedElementForEdition!.id);
+        else this.refreshArmorsObservable.emit();
           this.selectedElementForEdition = undefined;
+          this.showEditSuccessToast = true;
         });
       })
       .catch(() => {

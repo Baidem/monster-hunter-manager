@@ -295,3 +295,25 @@
     </button>
   </div>
 </ng-template>
+
+<!--/* TOAST EDIT SUCCESS */-->
+<ngb-toast
+  *ngIf="showEditSuccessToast"
+  class="position-fixed top-50 start-50 translate-middle bg-success text-center text-light border border-2 border-dark shadow"
+  [autohide]="true"
+  [delay]="4000"
+  (hidden)="showEditSuccessToast = false"
+>
+Edit success
+</ngb-toast>
+
+<!--/* TOAST ADD SUCCESS */-->
+<ngb-toast
+  *ngIf="showAddSuccessToast"
+  class="position-fixed top-50 start-50 translate-middle bg-success text-center text-light border border-2 border-dark shadow"
+  [autohide]="true"
+  [delay]="4000"
+  (hidden)="showAddSuccessToast = false"
+>
+Add success
+</ngb-toast>
