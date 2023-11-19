@@ -84,7 +84,7 @@ export interface ArmorSetsForm {
 export namespace ArmorSets {
   export function mapperArmorSetsHttpToArmorSets(armorSetsHttp: ArmorSetsHttp): ArmorSets {
     const armorPieces: Armor[] = armorSetsHttp.pieces.map((piece) => Armor.mapperArmorHttpToArmor(piece));
-    const resumePiecesSt: string[] = armorSetsHttp.pieces.map(piece => `id: ${piece.id} name: ${piece.name}`);
+    const resumePiecesSt: string[] = armorSetsHttp.pieces.map(piece => ` id: ${piece.id} name: ${piece.name}`);
     return {
       id: armorSetsHttp.id,
       name: armorSetsHttp.name,

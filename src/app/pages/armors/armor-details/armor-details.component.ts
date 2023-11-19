@@ -41,7 +41,6 @@ export class ArmorDetailsComponent {
 
     if (id) {
       this.armor$ = this.armorService.getById(parseInt(id));
-      console.log(this.armor$);
     }
     else {
       this.router.navigateByUrl('/not-found');

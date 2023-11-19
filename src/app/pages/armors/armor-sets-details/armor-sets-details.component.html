@@ -1,0 +1,53 @@
+<!--/* TITLE */-->
+<section>
+  <div
+    *ngIf="(armorSets$ | async) as armorSets"
+    class="container text-center text-bg-success py-1 my-4 shadow"
+  >
+    <h1>Armor sets details : {{armorSets.name}}</h1>
+  </div>
+</section>
+
+<section>
+  <div
+  *ngIf="(armorSets$ | async) as armorSets"
+  class="container"
+  >
+    <div class="row justify-content-center gap-2">
+        <div
+        *ngFor="let piece of armorSets.pieces"
+        class="col-auto"
+        >
+        <div class="card shadow">
+          <a
+            [routerLink]="['/', 'armor', piece.id]"
+            class="card-header text-bg-success texte-light">
+            Id: {{piece.id}} - {{piece.name}}
+          </a>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item d-flex justify-content-center">
+              <img src="{{piece.imageMale}}" height="200px">
+              <img src="{{piece.imageFemale}}" height="200px">
+            </li>
+            <li class="list-group-item">
+              Type: {{piece.type}} - Rank: {{piece.rank}} - Rarity: {{piece.rarity}}
+            </li>
+            <li class="list-group-item">
+              <strong class="rounded-pill bg-success text-light px-2 me-2 py-1 shadow-sm">
+                Defense
+              </strong>
+              Base: {{piece.defense.base}} - Max: {{piece.defense.max}} - Augmented: {{piece.defense.augmented}} - Thunder: {{piece.resistances.thunder}} - Dragon: {{piece.resistances.dragon}}
+            </li>
+            <li class="list-group-item">
+              <strong class="rounded-pill bg-success text-light px-2 me-2 py-1 shadow-sm">
+                Resistence
+              </strong>
+              Fire: {{piece.resistances.fire}} - Water: {{piece.resistances.water}} - Ice: {{piece.resistances.ice}} - Thunder: {{piece.resistances.thunder}} - Dragon: {{piece.resistances.dragon}}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
