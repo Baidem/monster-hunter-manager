@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { IconDefinition, faHippo, faHouse, faList, faShirt, faUmbrellaBeach, faUser } from '@fortawesome/free-solid-svg-icons';
+import { IconDefinition, faDragon, faHippo, faHouse, faList, faShirt, faUmbrellaBeach, faUser } from '@fortawesome/free-solid-svg-icons';
 import { Observable, map } from 'rxjs';
 import { AuthService } from 'src/app/services/auth/auth.service';
 
@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
 
   iconHome: IconDefinition = faHouse;
   iconLogout: IconDefinition = faUser;
-  iconLogo: IconDefinition = faHippo;
+  iconLogo: IconDefinition = faDragon;
   iconSignOut: IconDefinition = faUser;
   iconArmor: IconDefinition = faShirt;
   iconSets: IconDefinition = faList;
